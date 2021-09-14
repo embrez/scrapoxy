@@ -44,14 +44,14 @@ module.exports = class InstanceModel {
             type: this.type,
             status: this.status,
             address: this.address,
-            region: this.region,
+            region: this.region
         };
     }
 
 
     toString() {
         if (this.address) {
-            const addressStr = `${this.address.hostname}:${this.address.port}`;
+            const addressStr = `${this.address.hostname}:${this.address.port}:${this.address.publicip}`;
 
             return `${this.name}@${addressStr}`;
         }

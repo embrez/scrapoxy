@@ -109,7 +109,8 @@ module.exports = class ProviderAWSEC2 {
             return _.map(instancesDesc, (instanceDesc) => ({
                     id: instanceDesc.InstanceId,
                     status: instanceDesc.State.Name,
-                    ip: instanceDesc.PublicIpAddress,
+                    ip: instanceDesc.PrivateIpAddress,
+                    publicip: instanceDesc.PublicIpAddress,
                     tag: getTag(instanceDesc),
             }));
 
@@ -152,7 +153,7 @@ module.exports = class ProviderAWSEC2 {
                 self.name,
                 convertStatus(instanceDesc.status),
                 false,
-                buildAddress(instanceDesc.ip),
+                buildAddress(instanceDesc.ip,instanceDesc.publicip),
                 self.region,
                 instanceDesc
             ));
@@ -160,7 +161,7 @@ module.exports = class ProviderAWSEC2 {
 
             ////////////
 
-            function buildAddress(ip) {
+            function buildAddress(ip,publicip) {
                 if (!ip) {
                     return;
                 }
@@ -168,6 +169,7 @@ module.exports = class ProviderAWSEC2 {
                 return {
                     hostname: ip,
                     port: self._instancePort,
+                    publicip: publicip
                 };
             }
 

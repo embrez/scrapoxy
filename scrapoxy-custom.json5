@@ -1,0 +1,10 @@
+{
+  apps : [
+    {
+      name         : "scrapoxy-custom",
+      script       : "/usr/bin/npm",
+      args         : ["start", "start", "/home/ubuntu/scrapoxy/custom-server/scrapoxy/conf.json", "-d"],
+      kill_timeout : 30000,
+    },
+  ],
+}
